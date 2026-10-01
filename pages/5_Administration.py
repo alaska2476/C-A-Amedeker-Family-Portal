@@ -9,7 +9,11 @@ from database import (
     add_expense,
     get_expenses,
     update_expense,
-    delete_expense
+    delete_expense,
+    add_payment,
+    get_payments,
+    update_payment,
+    delete_payment
 )
 
 initialize_database()
@@ -286,11 +290,139 @@ with tab2:
 
 with tab3:
 
-    st.subheader("Payment Management")
+    st.subheader("Add Payment")
 
-    st.info(
-        "Add, edit and delete payments will be added next."
-    )
+    members = get_members()
+
+    if members:
+
+        member_options = {
+            member[1\]: member[0]
+            for member in members
+        }
+
+        payment_date = st.date_input(
+            "Payment Date",
+            key="payment_date"
+        )
+
+        selected_member = st.selectbox(
+            "Member",
+            list(member_options.keys()),
+            key="payment_member"
+        )
+
+        payment_description = st.text_input(
+            "Description",
+            key="payment_description"
+        )
+
+        payment_amount = st.number_input(
+            "Amount",
+            min_value=0.0,
+            step=0.01,
+            key="payment_amount"
+        )
+
+        if st.button(
+            "Save Payment",
+            key="btn_save_payment"
+        ):
+
+            add_payment(
+                member_options[selected_member],
+                payment_date,
+                payment_description,
+                payment_amount
+            )
+
+            st.success(
+                "Payment Saved Successfully"
+            )
+
+        st.markdown("---")
+
+        st.subheader("Edit Payment")
+
+        payments = get_payments()
+
+        if payments:
+
+            payment_options = {
+                f"{payment[0]} - {payment[2]}": payment[0]
+                for payment in payments
+            }
+
+            selected_payment = st.selectbox(
+                "Select Payment",
+                list(payment_options.keys()),
+                key="selected_payment"
+            )
+
+            edit_payment_date = st.date_input(
+                "Payment Date",
+                key="edit_payment_date"
+            )
+
+            edit_member = st.selectbox(
+                "Member",
+                list(member_options.keys()),
+                key="edit_payment_member"
+            )
+
+            edit_description = st.text_input(
+                "Description",
+                key="edit_payment_description"
+            )
+
+            edit_amount = st.number_input(
+                "Amount",
+                min_value=0.0,
+                step=0.01,
+                key="edit_payment_amount"
+            )
+
+            if st.button(
+                "Update Payment",
+                key="btn_update_payment"
+            ):
+
+                update_payment(
+                    payment_options[selected_payment],
+                    member_options[edit_member],
+                    edit_payment_date,
+                    edit_description,
+                    edit_amount
+                )
+
+                st.success(
+                    "Payment Updated Successfully"
+                )
+
+            if st.button(
+                "Delete Payment",
+                key="btn_delete_payment"
+            ):
+
+                delete_payment(
+                    payment_options[selected_payment]
+                )
+
+          st.success(
+                    "Payment Deleted Successfully"
+                )
+
+        else:
+
+            st.info(
+                "No payments available."
+            )
+
+    else:
+
+        st.info(
+            "Please add members first."
+        )
 
 # ----------------------------------
 # LEVIES
