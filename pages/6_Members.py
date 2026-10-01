@@ -17,14 +17,8 @@ if len(members) > 0:
         ]
     )
 
-    st.dataframe(
-        df,
-        use_container_width=True,
-        hide_index=True
-    )
+    st.table(df)
 
 else:
 
-    st.info(
-        "No members have been added yet."
-    )
+    st.info("No members have been added yet.")
