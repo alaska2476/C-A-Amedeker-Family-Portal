@@ -5,9 +5,11 @@ from database import (
     add_member,
     get_members,
     update_member,
+    delete_member,
     add_expense,
     get_expenses,
-    update_expense
+    update_expense,
+    delete_expense
 )
 
 initialize_database()
@@ -37,7 +39,10 @@ with tab1:
         key="member_full_name"
     )
 
-    if st.button("Add Member", key="btn_add_member"):
+    if st.button(
+        "Add Member",
+        key="btn_add_member"
+    ):
 
         if full_name.strip():
 
@@ -87,9 +92,25 @@ with tab1:
                     "Member Updated Successfully"
                 )
 
+        if st.button(
+            "Delete Member",
+            key="btn_delete_member"
+        ):
+
+            delete_member(
+                member_options[selected_member]
+            )
+
+            st.success(
+                "Member Deleted Successfully"
+            )
+
     else:
 
-        st.info("No members available.")
+        st.info(
+            "No members available."
+        )
+
 # ----------------------------------
 # EXPENSES
 # ----------------------------------
@@ -106,14 +127,11 @@ with tab2:
     expense_type = st.selectbox(
         "Expense Type",
         [
-            "Electricity",
+            "ECG",
             "Water",
             "Housekeeping",
             "Funeral",
-            "Transport",
-            "Maintenance",
-            "Meeting",
-            "Administration",
+            "Festival",
             "Other"
         ],
         key="expense_type"
@@ -122,14 +140,11 @@ with tab2:
     expense_description = st.selectbox(
         "Description",
         [
-            "ECG Bill",
+            "Electricity Bill",
             "Water Bill",
-            "Cleaning Services",
+            "Housekeeping",
             "Funeral Contribution",
-            "Transportation",
-            "Repairs",
-            "Meeting Refreshments",
-            "Office Supplies",
+            "Annual Festival and Family Get Together",
             "Other"
         ],
         key="expense_description"
@@ -209,7 +224,7 @@ with tab2:
                 "Water Bill",
                 "Housekeeping",
                 "Funeral Contribution",
-                "Annual festival and Family Get together",
+                "Annual Festival and Family Get Together",
                 "Other"
             ],
             key="edit_expense_description"
@@ -246,6 +261,19 @@ with tab2:
                 "Expense Updated Successfully"
             )
 
+        if st.button(
+            "Delete Expense",
+            key="btn_delete_expense"
+        ):
+
+            delete_expense(
+                expense_options[selected_expense]
+            )
+
+            st.success(
+                "Expense Deleted Successfully"
+            )
+
     else:
 
         st.info(
@@ -276,3 +304,14 @@ with tab4:
         "Add, edit and delete levies will be added next."
     )
 
+# ----------------------------------
+# AUDIT LOG
+# ----------------------------------
+
+with tab5:
+
+    st.subheader("Audit Log")
+
+    st.info(
+        "Audit records will appear here."
+    )
