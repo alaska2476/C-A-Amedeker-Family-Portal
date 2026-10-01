@@ -122,8 +122,7 @@ def get_members():
     cursor.execute("""
     SELECT
         id,
-        full_name,
-        contribution_start_date
+        full_name
     FROM members
     ORDER BY id
     """)
