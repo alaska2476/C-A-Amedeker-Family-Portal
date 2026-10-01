@@ -137,20 +137,19 @@ with tab4:
     )
 
     if st.button(
-    "Add Member",
-    key="btn_add_member"
-):
+        "Add Member",
+        key="btn_add_member"
+    ):
 
-    add_member(
-        full_name,
-        phone,
-        email
-    )
+        add_member(
+            full_name,
+            phone,
+            email
+        )
 
-    st.success(
-        "Member Added Successfully"
-    )
-
+        st.success(
+            "Member Added Successfully"
+        )
 # ----------------------------------
 # AUDIT LOG
 # ----------------------------------
