@@ -1,10 +1,17 @@
 import sqlite3
 
+DB_NAME = "family.db"
+
+
+def get_connection():
+    return sqlite3.connect(DB_NAME)
+
+
 def initialize_database():
 
-    conn = sqlite3.connect("family.db")
+    conn = get_connection()
     cursor = conn.cursor()
-    
+
     # Members
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS members (
@@ -49,6 +56,7 @@ def initialize_database():
 
     conn.commit()
     conn.close()
+
 
 if __name__ == "__main__":
     initialize_database()
