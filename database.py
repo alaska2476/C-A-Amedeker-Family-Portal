@@ -119,8 +119,9 @@ def update_member(member_id, full_name,contribution_start_date):
     cursor.execute("""
     UPDATE members
     SET full_name = ?
+        contribution_start_date = ?
     WHERE id = ?
-    """, (full_name, member_id))
+    """, (full_name, str(contribution_start_date), member_id))
 
     conn.commit()
     conn.close()
