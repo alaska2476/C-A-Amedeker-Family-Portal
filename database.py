@@ -59,7 +59,7 @@ def initialize_database():
     conn.close()
 
 
-def add_member(full_name, phone, email):
+def add_member(full_name):
 
     conn = get_connection()
     cursor = conn.cursor()
