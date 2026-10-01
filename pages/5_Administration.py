@@ -90,7 +90,6 @@ with tab1:
     else:
 
         st.info("No members available.")
-
 # ----------------------------------
 # EXPENSES
 # ----------------------------------
@@ -104,15 +103,44 @@ with tab2:
         key="expense_date"
     )
 
-    expense_type = st.text_input(
+    expense_type = st.selectbox(
         "Expense Type",
+        [
+            "Electricity",
+            "Water",
+            "Housekeeping",
+            "Funeral",
+            "Transport",
+            "Maintenance",
+            "Meeting",
+            "Administration",
+            "Other"
+        ],
         key="expense_type"
     )
 
-    expense_description = st.text_input(
+    expense_description = st.selectbox(
         "Description",
+        [
+            "ECG Bill",
+            "Water Bill",
+            "Cleaning Services",
+            "Funeral Contribution",
+            "Transportation",
+            "Repairs",
+            "Meeting Refreshments",
+            "Office Supplies",
+            "Other"
+        ],
         key="expense_description"
     )
+
+    if expense_description == "Other":
+
+        expense_description = st.text_input(
+            "Enter Description",
+            key="custom_expense_description"
+        )
 
     expense_amount = st.number_input(
         "Amount",
@@ -161,15 +189,44 @@ with tab2:
             key="edit_expense_date"
         )
 
-        edit_type = st.text_input(
+        edit_type = st.selectbox(
             "Expense Type",
+            [
+                "Electricity",
+                "Water",
+                "Housekeeping",
+                "Funeral",
+                "Transport",
+                "Maintenance",
+                "Meeting",
+                "Administration",
+                "Other"
+            ],
             key="edit_expense_type"
         )
 
-        edit_description = st.text_input(
+        edit_description = st.selectbox(
             "Description",
+            [
+                "ECG Bill",
+                "Water Bill",
+                "Cleaning Services",
+                "Funeral Contribution",
+                "Transportation",
+                "Repairs",
+                "Meeting Refreshments",
+                "Office Supplies",
+                "Other"
+            ],
             key="edit_expense_description"
         )
+
+        if edit_description == "Other":
+
+            edit_description = st.text_input(
+                "Enter Description",
+                key="edit_custom_expense_description"
+            )
 
         edit_amount = st.number_input(
             "Amount",
@@ -197,7 +254,9 @@ with tab2:
 
     else:
 
-        st.info("No expenses available.")
+        st.info(
+            "No expenses available."
+        )
 
 # ----------------------------------
 # PAYMENTS
