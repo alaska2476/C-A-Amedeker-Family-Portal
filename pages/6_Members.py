@@ -27,7 +27,8 @@ if st.button("Add Member"):
     if member_name.strip():
 
         add_member(
-            member_name
+            member_name,
+            contribution_start_date
         )
 
         st.success(
@@ -56,7 +57,8 @@ if len(members) > 0:
         members,
         columns=[
             "ID",
-            "Name"
+            "Name",
+            "Contribution Start Date"
         ]
     )
 
