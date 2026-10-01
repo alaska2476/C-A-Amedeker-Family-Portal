@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 
-from database import get_members
+from database import initialize_database, get_members
 
+initialize_database()
 st.title("Members")
 
 members = get_members()
