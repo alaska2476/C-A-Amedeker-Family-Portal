@@ -297,7 +297,7 @@ with tab3:
     if members:
 
         member_options = {
-            member[1\]: member[0]
+            member[1]: member[0]
             for member in members
         }
 
@@ -336,9 +336,7 @@ with tab3:
                 payment_amount
             )
 
-            st.success(
-                "Payment Saved Successfully"
-            )
+            st.success("Payment Saved Successfully")
 
         st.markdown("---")
 
@@ -392,12 +390,10 @@ with tab3:
                     member_options[edit_member],
                     edit_payment_date,
                     edit_description,
-                    edit_amount
+              edit_amount
                 )
 
-                st.success(
-                    "Payment Updated Successfully"
-                )
+                st.success("Payment Updated Successfully")
 
             if st.button(
                 "Delete Payment",
@@ -406,23 +402,17 @@ with tab3:
 
                 delete_payment(
                     payment_options[selected_payment]
-          )
-
-                st.success(
-                    "Payment Deleted Successfully"
                 )
+
+                st.success("Payment Deleted Successfully")
 
         else:
 
-            st.info(
-                "No payments available."
-            )
+            st.info("No payments available.")
 
     else:
 
-        st.info(
-            "Please add members first."
-        )
+        st.info("Please add members first.")
 # ----------------------------------
 # LEVIES
 # ----------------------------------
