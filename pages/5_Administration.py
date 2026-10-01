@@ -192,14 +192,11 @@ with tab2:
         edit_type = st.selectbox(
             "Expense Type",
             [
-                "Electricity",
+                "ECG",
                 "Water",
                 "Housekeeping",
                 "Funeral",
-                "Transport",
-                "Maintenance",
-                "Meeting",
-                "Administration",
+                "Festival",
                 "Other"
             ],
             key="edit_expense_type"
@@ -208,14 +205,11 @@ with tab2:
         edit_description = st.selectbox(
             "Description",
             [
-                "ECG Bill",
+                "Electricity Bill",
                 "Water Bill",
-                "Cleaning Services",
+                "Housekeeping",
                 "Funeral Contribution",
-                "Transportation",
-                "Repairs",
-                "Meeting Refreshments",
-                "Office Supplies",
+                "Annual festival and Family Get together",
                 "Other"
             ],
             key="edit_expense_description"
