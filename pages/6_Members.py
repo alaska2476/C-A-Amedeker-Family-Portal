@@ -13,7 +13,8 @@ if len(members) > 0:
         members,
         columns=[
             "ID",
-            "Name"
+            "Name",
+            "contribution_start_date"
         ]
     )
 
