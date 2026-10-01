@@ -16,10 +16,7 @@ def initialize_database():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS members (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        full_name TEXT NOT NULL,
-        phone TEXT,
-        email TEXT,
-        status TEXT DEFAULT 'Active'
+        full_name TEXT NOT NULL
     )
     """)
 
@@ -67,8 +64,8 @@ def add_member(full_name):
     cursor.execute("""
     INSERT INTO members
     (full_name)
-    VALUES (?,)
-    """, (full_name))
+    VALUES (?)
+    """, (full_name,))
 
     conn.commit()
     conn.close()
@@ -82,7 +79,7 @@ def get_members():
     cursor.execute("""
     SELECT id, full_name
     FROM members
-    ORDER BY full_name
+    ORDER BY id
     """)
 
     records = cursor.fetchall()
@@ -90,6 +87,21 @@ def get_members():
     conn.close()
 
     return records
+
+
+def update_member(member_id, full_name):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    UPDATE members
+    SET full_name = ?
+    WHERE id = ?
+    """, (full_name, member_id))
+
+    conn.commit()
+    conn.close()
 
 
 if __name__ == "__main__":
