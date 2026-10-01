@@ -117,5 +117,89 @@ def update_member(member_id, full_name):
     conn.close()
 
 
+def add_expense(
+    expense_date,
+    expense_type,
+    description,
+    amount
+):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO expenses
+    (
+        expense_date,
+        expense_type,
+        description,
+        amount
+    )
+    VALUES (?, ?, ?, ?)
+    """, (
+        str(expense_date),
+        expense_type,
+        description,
+        amount
+    ))
+
+    conn.commit()
+    conn.close()
+
+
+def get_expenses():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT
+        id,
+        expense_date,
+        expense_type,
+        description,
+        amount
+    FROM expenses
+    ORDER BY id
+    """)
+
+    records = cursor.fetchall()
+
+    conn.close()
+
+    return records
+
+
+def update_expense(
+    expense_id,
+    expense_date,
+    expense_type,
+    description,
+    amount
+):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    UPDATE expenses
+    SET
+        expense_date = ?,
+        expense_type = ?,
+        description = ?,
+        amount = ?
+    WHERE id = ?
+    """, (
+        str(expense_date),
+        expense_type,
+        description,
+        amount,
+        expense_id
+    ))
+
+    conn.commit()
+    conn.close()
+
+
 if __name__ == "__main__":
     initialize_database()
