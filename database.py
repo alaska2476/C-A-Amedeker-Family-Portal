@@ -66,9 +66,9 @@ def add_member(full_name):
 
     cursor.execute("""
     INSERT INTO members
-    (full_name, phone, email)
-    VALUES (?, ?, ?)
-    """, (full_name, phone, email))
+    (full_name)
+    VALUES (?,)
+    """, (full_name))
 
     conn.commit()
     conn.close()
@@ -80,7 +80,7 @@ def get_members():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT id, full_name, phone, email, status
+    SELECT id, full_name
     FROM members
     ORDER BY full_name
     """)
