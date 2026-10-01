@@ -4,7 +4,7 @@ def initialize_database():
 
     conn = sqlite3.connect("family.db")
     cursor = conn.cursor()
-
+    
     # Members
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS members (
