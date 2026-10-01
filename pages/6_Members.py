@@ -14,6 +14,7 @@ if len(members) > 0:
         columns=[
             "ID",
             "Name"
+            "Contribution Start Date"
         ]
     )
 
