@@ -1,5 +1,4 @@
 import streamlit as st
-
 from database import get_members
 
 # --------------------------------------------------
@@ -26,7 +25,7 @@ members = get_members()
 if members:
 
     member_options = {
-        member[1]: member[0]
+        member[1\]: member[0]
         for member in members
     }
 
@@ -51,17 +50,9 @@ if members:
 
     st.subheader("Member Information")
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.write(
-            f"**Name:** {member_data[1]}"
-        )
-
-    with col2:
-        st.write(
-            f"**Contribution Start Date:** {member_data[2]}"
-        )
+    st.write(
+        f"**Name:** {member_data[1]}"
+    )
 
     st.markdown("---")
 
@@ -113,7 +104,7 @@ if members:
 
     # --------------------------------------------------
     # MONTHLY BREAKDOWN
-    # --------------------------------------------------
+    # --------------------------------------------
 
     st.subheader("Monthly Breakdown")
 
@@ -138,7 +129,7 @@ if members:
         )
 
     with total2:
-       tric(
+        st.metric(
             "Total Paid",
             "GHC 0.00"
         )
