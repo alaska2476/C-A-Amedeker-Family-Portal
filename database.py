@@ -17,7 +17,7 @@ def initialize_database():
     CREATE TABLE IF NOT EXISTS members (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         full_name TEXT NOT NULL,
-        contribution_start_date TEXT
+        contribution_start_date TEXT 
     )
     """)
 
