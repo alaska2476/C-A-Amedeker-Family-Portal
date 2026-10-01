@@ -59,5 +59,38 @@ def initialize_database():
     conn.close()
 
 
+def add_member(full_name, phone, email):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO members
+    (full_name, phone, email)
+    VALUES (?, ?, ?)
+    """, (full_name, phone, email))
+
+    conn.commit()
+    conn.close()
+
+
+def get_members():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT id, full_name, phone, email, status
+    FROM members
+    ORDER BY full_name
+    """)
+
+    records = cursor.fetchall()
+
+    conn.close()
+
+    return records
+
+
 if __name__ == "__main__":
     initialize_database()
