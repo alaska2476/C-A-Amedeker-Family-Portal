@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 from database import get_members
 
@@ -8,11 +9,22 @@ members = get_members()
 
 if len(members) > 0:
 
-    st.markdown("**ID      Name**")
+    df = pd.DataFrame(
+        members,
+        columns=[
+            "ID",
+            "Name"
+        ]
+    )
 
-    for member in members:
-        st.text(f"{member[0]:<4} {member[11]}")
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True
+    )
 
 else:
 
-    st.info("No members have been added yet.")
+    st.info(
+        "No members have been added yet."
+    )
