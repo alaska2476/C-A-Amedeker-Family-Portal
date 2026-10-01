@@ -1,4 +1,5 @@
 import streamlit as st
+from database import add_member
 
 st.title("Administration")
 
@@ -136,10 +137,19 @@ with tab4:
     )
 
     if st.button(
-        "Add Member",
-        key="btn_add_member"
-    ):
-        st.success("Member Added")
+    "Add Member",
+    key="btn_add_member"
+):
+
+    add_member(
+        full_name,
+        phone,
+        email
+    )
+
+    st.success(
+        "Member Added Successfully"
+    )
 
 # ----------------------------------
 # AUDIT LOG
