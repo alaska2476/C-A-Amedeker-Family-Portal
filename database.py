@@ -20,6 +20,17 @@ def initialize_database():
     )
     """)
 
+    # Expenses
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        expense_date TEXT,
+        expense_type TEXT,
+        description TEXT,
+        amount REAL
+    )
+    """)
+
     # Payments
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS payments (
@@ -77,7 +88,9 @@ def get_members():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT id, full_name
+    SELECT
+        id,
+        full_name
     FROM members
     ORDER BY id
     """)
