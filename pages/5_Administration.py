@@ -318,10 +318,6 @@ with tab3:
                 "Annual Levy",
                 "Festival Contribution",
                 "Funeral Contribution",
-                "Building Maintenance",
-                "Special Assessment",
-                "Outstanding Levy Payment",
-                "Donation",
                 "Other"
             ],
             key="payment_description"
