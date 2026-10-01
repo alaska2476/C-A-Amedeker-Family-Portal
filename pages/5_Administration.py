@@ -283,7 +283,6 @@ with tab2:
         st.info(
             "No expenses available."
         )
-
 # ----------------------------------
 # PAYMENTS
 # ----------------------------------
@@ -297,7 +296,7 @@ with tab3:
     if members:
 
         member_options = {
-            member[1]: member[0]
+            member[1\]: member[0]
             for member in members
         }
 
@@ -337,7 +336,7 @@ with tab3:
 
         payment_amount = st.number_input(
             "Amount",
-            min_value=0.00,
+            min_value=0.0,
             step=0.01,
             key="payment_amount"
         )
@@ -394,7 +393,7 @@ with tab3:
                     "Monthly Dues",
                     "Annual Levy",
                     "Festival Contribution",
-                    "Funeral Contribution",
+                    "Funeral bution",
                     "Building Maintenance",
                     "Special Assessment",
                     "Outstanding Levy Payment",
@@ -412,8 +411,8 @@ with tab3:
                 )
 
             edit_amount = st.number_input(
-               nt",
-                min_value=0.00,
+                "Amount",
+                min_value=0.0,
                 step=0.01,
                 key="edit_payment_amount"
             )
