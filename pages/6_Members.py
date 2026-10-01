@@ -27,8 +27,7 @@ if st.button("Add Member"):
     if member_name.strip():
 
         add_member(
-            member_name,
-            contribution_start_date
+            member_name
         )
 
         st.success(
