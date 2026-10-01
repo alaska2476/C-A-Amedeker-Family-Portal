@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 from database import get_members
 
@@ -9,15 +8,10 @@ members = get_members()
 
 if len(members) > 0:
 
-    df = pd.DataFrame(
-        members,
-        columns=[
-            "ID",
-            "Name"
-        ]
-    )
+    st.markdown("**ID      Name**")
 
-    st.table(df)
+    for member in members:
+        st.text(f"{member[0]:<4} {member[11]}")
 
 else:
 
