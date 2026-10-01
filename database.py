@@ -18,18 +18,8 @@ def initialize_database():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         full_name TEXT NOT NULL,
         phone TEXT,
-        email TEXT
-    )
-    """)
-
-    # Levies
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS levies (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        member_id INTEGER,
-        levy_date TEXT,
-        description TEXT,
-        amount REAL
+        email TEXT,
+        status TEXT DEFAULT 'Active'
     )
     """)
 
@@ -39,6 +29,17 @@ def initialize_database():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         member_id INTEGER,
         payment_date TEXT,
+        description TEXT,
+        amount REAL
+    )
+    """)
+
+    # Levies
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS levies (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        member_id INTEGER,
+        levy_date TEXT,
         description TEXT,
         amount REAL
     )
