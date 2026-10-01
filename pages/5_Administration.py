@@ -14,10 +14,48 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 ])
 
 # ----------------------------------
-# ADD EXPENSE
+# ADD MEMBER
 # ----------------------------------
 
 with tab1:
+
+    st.subheader("Add Member")
+
+    full_name = st.text_input(
+        "Full Name",
+        key="member_full_name"
+    )
+
+    phone = st.text_input(
+        "Phone",
+        key="member_phone"
+    )
+
+    email = st.text_input(
+        "Email",
+        key="member_email"
+    )
+
+    if st.button(
+        "Add Member",
+        key="btn_add_member"
+    ):
+
+        add_member(
+            full_name,
+            phone,
+            email
+        )
+
+        st.success(
+            "Member Added Successfully"
+        )
+
+# ----------------------------------
+# ADD EXPENSE
+# ----------------------------------
+
+with tab2:
 
     st.subheader("Add Expense")
 
@@ -32,7 +70,7 @@ with tab1:
     )
 
     expense_description = st.text_input(
-        "Description", 
+        "Description",
         key="expense_description"
     )
 
@@ -52,7 +90,7 @@ with tab1:
 # RECORD PAYMENT
 # ----------------------------------
 
-with tab2:
+with tab3:
 
     st.subheader("Record Payment")
 
@@ -87,7 +125,7 @@ with tab2:
 # ADD LEVY
 # ----------------------------------
 
-with tab3:
+with tab4:
 
     st.subheader("Add Levy")
 
@@ -114,43 +152,6 @@ with tab3:
         st.success("Levy Added")
 
 # ----------------------------------
-# ADD MEMBER
-# ----------------------------------
-
-with tab4:
-
-    st.subheader("Add Member")
-
-    full_name = st.text_input(
-        "Full Name",
-        key="member_full_name"
-    )
-
-    phone = st.text_input(
-        "Phone",
-        key="member_phone"
-    )
-
-    email = st.text_input(
-        "Email",
-        key="member_email"
-    )
-
-    if st.button(
-        "Add Member",
-        key="btn_add_member"
-    ):
-
-        add_member(
-            full_name,
-            phone,
-            email
-        )
-
-        st.success(
-            "Member Added Successfully"
-        )
-# ----------------------------------
 # AUDIT LOG
 # ----------------------------------
 
@@ -161,4 +162,3 @@ with tab5:
     st.info(
         "Audit records will appear here."
     )
-
