@@ -5,7 +5,9 @@ from database import (
     add_member,
     get_members,
     update_member,
-    add_expense
+    add_expense,
+    get_expenses,
+    update_expense
 )
 
 initialize_database()
@@ -63,7 +65,8 @@ with tab1:
 
         selected_member = st.selectbox(
             "Select Member",
-            list(member_options.keys())
+            list(member_options.keys()),
+            key="selected_member"
         )
 
         corrected_name = st.text_input(
@@ -136,6 +139,69 @@ with tab2:
 
         st.success(
             "Expense Saved Successfully"
+        )
+
+    st.markdown("---")
+
+    st.subheader("Edit Expense")
+
+    expenses = get_expenses()
+
+    if expenses:
+
+        expense_options = {
+            f"{expense[0]} - {expense[2]}": expense[0]
+            for expense in expenses
+        }
+
+        selected_expense = st.selectbox(
+            "Select Expense",
+            list(expense_options.keys()),
+            key="selected_expense"
+        )
+
+        edit_date = st.date_input(
+            "Expense Date",
+            key="edit_expense_date"
+        )
+
+        edit_type = st.text_input(
+            "Expense Type",
+            key="edit_expense_type"
+        )
+
+        edit_description = st.text_input(
+            "Description",
+            key="edit_expense_description"
+        )
+
+        edit_amount = st.number_input(
+            "Amount",
+            min_value=0.0,
+            key="edit_expense_amount"
+        )
+
+        if st.button(
+            "Update Expense",
+            key="btn_update_expense"
+        ):
+
+            update_expense(
+                expense_options[selected_expense],
+                edit_date,
+                edit_type,
+                edit_description,
+                edit_amount
+            )
+
+            st.success(
+                "Expense Updated Successfully"
+            )
+
+    else:
+
+        st.info(
+            "No expenses available."
         )
 
 # ----------------------------------
