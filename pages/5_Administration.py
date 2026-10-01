@@ -312,10 +312,28 @@ with tab3:
             key="payment_member"
         )
 
-        payment_description = st.text_input(
-            "Description",
+        payment_description = st.selectbox(
+            "Payment Type",
+            [
+                "Monthly Dues",
+                "Annual Levy",
+                "Festival Contribution",
+                "Funeral Contribution",
+                "Building Maintenance",
+                "Special Assessment",
+                "Outstanding Levy Payment",
+                "Donation",
+                "Other"
+            ],
             key="payment_description"
         )
+
+        if payment_description == "Other":
+
+            payment_description = st.text_input(
+                "Enter Custom Description",
+                key="custom_payment_description"
+            )
 
         payment_amount = st.number_input(
             "Amount",
@@ -336,7 +354,9 @@ with tab3:
                 payment_amount
             )
 
-            st.success("Payment Saved Successfully")
+            st.success(
+                "Payment Saved Successfully"
+            )
 
         st.markdown("---")
 
@@ -360,18 +380,34 @@ with tab3:
             edit_payment_date = st.date_input(
                 "Payment Date",
                 key="edit_payment_date"
-            )
-
-            edit_member = st.selectbox(
+                     edit_member = st.selectbox(
                 "Member",
                 list(member_options.keys()),
                 key="edit_payment_member"
             )
 
-            edit_description = st.text_input(
-                "Description",
+            edit_description = st.selectbox(
+                "Payment Type",
+                [
+                    "Monthly Dues",
+                    "Annual Levy",
+                    "Festival Contribution",
+                    "Funeral Contribution",
+                    "Building Maintenance",
+                    "Special Assessment",
+                    "Outstanding Levy Payment",
+                    "Donation",
+                    "Other"
+                ],
                 key="edit_payment_description"
             )
+
+            if edit_description == "Other":
+
+                edit_description = st.text_input(
+                    "Enter Custom Description",
+                    key="edit_custom_payment_description"
+                )
 
             edit_amount = st.number_input(
                 "Amount",
@@ -390,10 +426,12 @@ with tab3:
                     member_options[edit_member],
                     edit_payment_date,
                     edit_description,
-              edit_amount
+                    edit_amount
                 )
 
-                st.success("Payment Updated Successfully")
+                st.success(
+                    "Payment Updated Successfully"
+                )
 
             if st.button(
                 "Delete Payment",
@@ -404,15 +442,21 @@ with tab3:
                     payment_options[selected_payment]
                 )
 
-                st.success("Payment Deleted Successfully")
+                st.success(
+                    "Payment Deleted Successfully"
+                )
 
         else:
 
-            st.info("No payments available.")
+            st.info(
+                "No payments available."
+            )
 
     else:
 
-        st.info("Please add members first.")
+        st.info(
+            "Please add members first."
+        )
 # ----------------------------------
 # LEVIES
 # ----------------------------------
