@@ -12,16 +12,31 @@ def initialize_database():
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Members
+    # --------------------------------------------------
+    # MEMBERS
+    # --------------------------------------------------
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS members (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         full_name TEXT NOT NULL,
-        contribution_start_date TEXT 
+        contribution_start_date TEXT
     )
     """)
 
-    # Expenses
+    # Add the column to existing databases
+    try:
+        cursor.execute("""
+        ALTER TABLE members
+        ADD COLUMN contribution_start_date TEXT
+        """)
+    except:
+        pass
+
+    # --------------------------------------------------
+    # EXPENSES
+    # --------------------------------------------------
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS expenses (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +47,10 @@ def initialize_database():
     )
     """)
 
-    # Payments
+    # --------------------------------------------------
+    # PAYMENTS
+    # --------------------------------------------------
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS payments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,7 +61,10 @@ def initialize_database():
     )
     """)
 
-    # Levies
+    # --------------------------------------------------
+    # LEVIES
+    # --------------------------------------------------
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS levies (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,7 +75,10 @@ def initialize_database():
     )
     """)
 
-    # Audit Log
+    # --------------------------------------------------
+    # AUDIT LOG
+    # --------------------------------------------------
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS audit_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
