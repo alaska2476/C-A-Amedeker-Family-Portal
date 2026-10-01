@@ -33,7 +33,6 @@ total_expenses = (
 
 cash_balance = total_contributions - total_expenses
 
-# Placeholder until Outstanding Levies is built
 outstanding_levies = 0
 
 # --------------------------------------------------
@@ -49,58 +48,46 @@ st.caption(
 st.markdown("---")
 
 # --------------------------------------------------
-# MAIN DASHBOARD
+# FAMILY FUND SUMMARY
 # --------------------------------------------------
 
-left, right = st.columns([1, 2])
+st.subheader("Family Fund Summary")
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("**Total Contributions**")
+    st.markdown(
+        f"## GHC {total_contributions:,.2f}"
+    )
+
+with col2:
+    st.markdown("**Total Expenses**")
+    st.markdown(
+        f"## GHC {total_expenses:,.2f}"
+    )
+
+with col3:
+    st.markdown("**Cash Balance**")
+    st.markdown(
+        f"## GHC {cash_balance:,.2f}"
+    )
+
+with col4:
+    st.markdown("**Outstanding Levies**")
+    st.markdown(
+        f"## GHC {outstanding_levies:,.2f}"
+    )
+
+st.markdown("---")
 
 # --------------------------------------------------
-# LEFT SIDE
+# RECENT ACTIVITY
 # --------------------------------------------------
+
+left, right = st.columns(2)
 
 with left:
-
-    st.subheader("Family Fund Summary")
-
-    st.metric(
-        "Total Contributions",
-        f"GHC {total_contributions:,.2f}"
-    )
-
-    st.metric(
-        "Total Expenses",
-        f"GHC {total_expenses:,.2f}"
-    )
-
-    st.metric(
-        "Cash Balance",
-        f"GHC {cash_balance:,.2f}"
-    )
-
-    st.metric(
-        "Outstanding Levies",
-        f"GHC {outstanding_levies:,.2f}"
-    )
-
-    st.markdown("---")
-
-    if cash_balance >= 0:
-
-        st.success(
-            f"Available Family Fund Balance: GHC {cash_balance:,.2f}"
-        )
-
-    else:
-
-        st.error(
-            f"Family Fund Deficit: GHC {cash_balance:,.2f}"
-        )
-
-# --------------------------------------------------
-# RIGHT SIDE
-# --------------------------------------------------
-
-with right:
 
     st.subheader("Recent Contributions")
 
@@ -117,7 +104,7 @@ with right:
             "No contributions recorded."
         )
 
-    st.markdown("---")
+with right:
 
     st.subheader("Recent Expenses")
 
@@ -133,3 +120,35 @@ with right:
         st.info(
             "No expenses recorded."
         )
+
+st.markdown("---")
+
+# --------------------------------------------------
+# CONTRIBUTIONS VS EXPENSES
+# --------------------------------------------------
+
+st.subheader(
+    "Contributions vs Expenses Trend"
+)
+
+st.info(
+    "Coming next: Green line = Contributions, Red line = Expenses."
+)
+
+st.markdown("---")
+
+# --------------------------------------------------
+# FUND STATUS
+# --------------------------------------------------
+
+if cash_balance >= 0:
+
+    st.success(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
+
+else:
+
+    st.error(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
