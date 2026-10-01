@@ -390,7 +390,7 @@ with tab3:
                 update_payment(
                     payment_options[selected_payment],
                     member_options[edit_member],
-                    edit_payment_date,
+              edit_payment_date,
                     edit_description,
                     edit_amount
                 )
@@ -408,7 +408,7 @@ with tab3:
                     payment_options[selected_payment]
                 )
 
-          st.success(
+                st.success(
                     "Payment Deleted Successfully"
                 )
 
