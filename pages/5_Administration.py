@@ -337,7 +337,7 @@ with tab3:
 
         payment_amount = st.number_input(
             "Amount",
-            min_value=0.0,
+            min_value=0.00,
             step=0.01,
             key="payment_amount"
         )
@@ -380,7 +380,9 @@ with tab3:
             edit_payment_date = st.date_input(
                 "Payment Date",
                 key="edit_payment_date"
-                     edit_member = st.selectbox(
+            )
+
+            edit_member = st.selectbox(
                 "Member",
                 list(member_options.keys()),
                 key="edit_payment_member"
@@ -410,8 +412,8 @@ with tab3:
                 )
 
             edit_amount = st.number_input(
-                "Amount",
-                min_value=0.0,
+               nt",
+                min_value=0.00,
                 step=0.01,
                 key="edit_payment_amount"
             )
