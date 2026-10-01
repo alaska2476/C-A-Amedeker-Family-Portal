@@ -1,5 +1,7 @@
 import streamlit as st
-from database import add_member
+from database import initialize_database, add_member
+
+initialize_database()
 
 st.title("Administration")
 
