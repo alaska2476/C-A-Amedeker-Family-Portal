@@ -4,7 +4,8 @@ from database import (
     initialize_database,
     add_member,
     get_members,
-    update_member
+    update_member,
+    add_expense
 )
 
 initialize_database()
@@ -98,11 +99,44 @@ with tab1:
 
 with tab2:
 
-    st.subheader("Expense Management")
+    st.subheader("Add Expense")
 
-    st.info(
-        "Add, edit and delete expenses will be added next."
+    expense_date = st.date_input(
+        "Expense Date",
+        key="expense_date"
     )
+
+    expense_type = st.text_input(
+        "Expense Type",
+        key="expense_type"
+    )
+
+    expense_description = st.text_input(
+        "Description",
+        key="expense_description"
+    )
+
+    expense_amount = st.number_input(
+        "Amount",
+        min_value=0.0,
+        key="expense_amount"
+    )
+
+    if st.button(
+        "Save Expense",
+        key="btn_save_expense"
+    ):
+
+        add_expense(
+            expense_date,
+            expense_type,
+            expense_description,
+            expense_amount
+        )
+
+        st.success(
+            "Expense Saved Successfully"
+        )
 
 # ----------------------------------
 # PAYMENTS
