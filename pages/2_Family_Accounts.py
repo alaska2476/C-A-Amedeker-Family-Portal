@@ -1,7 +1,6 @@
 import streamlit as st
 
-st.title("Family Accounts")
-
+st.title("Expenses")
 st.info(
     "No family account records available."
 )
