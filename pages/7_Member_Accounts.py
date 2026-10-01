@@ -13,7 +13,7 @@ members = get_members()
 if members:
 
     member_options = {
-        member[1\]: member[0]
+        member[1]: member[0]
         for member in members
     }
 
