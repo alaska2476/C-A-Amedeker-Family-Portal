@@ -32,7 +32,7 @@ with tab1:
     )
 
     expense_description = st.text_input(
-        "Description",
+        "Description", 
         key="expense_description"
     )
 
