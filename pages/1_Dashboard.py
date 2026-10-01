@@ -81,7 +81,6 @@ with col4:
     )
 
 st.write("")
-st.write("")
 st.markdown("---")
 
 # --------------------------------------------------
@@ -91,6 +90,10 @@ st.markdown("---")
 st.subheader("Recent Activity")
 
 left, spacer, right = st.columns([5, 2, 5])
+
+# --------------------------------------------------
+# RECENT CONTRIBUTIONS
+# --------------------------------------------------
 
 with left:
 
@@ -109,6 +112,15 @@ with left:
             ]
         )
 
+        contribution_df = contribution_df[
+            [
+                "Date",
+                "Member",
+                "Contribution Type",
+                "Amount"
+            ]
+        ]
+
         st.dataframe(
             contribution_df.tail(10),
             use_container_width=True
@@ -119,6 +131,10 @@ with left:
         st.info(
             "No contributions recorded."
         )
+
+# --------------------------------------------------
+# RECENT EXPENSES
+# --------------------------------------------------
 
 with right:
 
@@ -137,6 +153,15 @@ with right:
             ]
         )
 
+        expense_df = expense_df[
+            [
+                "Date",
+                "Expense Type",
+                "Description",
+                "Amount"
+            ]
+        ]
+
         st.dataframe(
             expense_df.tail(10),
             use_container_width=True
@@ -148,7 +173,6 @@ with right:
             "No expenses recorded."
         )
 
-st.write("")
 st.write("")
 st.markdown("---")
 
@@ -191,18 +215,14 @@ if payments or expenses:
     )
 
     chart_df = (
-        chart_df
-        .groupby("Date")
+        chart_df.groupby("Date")
         .sum()
         .sort_index()
     )
 
     st.line_chart(
         chart_df,
-        color=[
-            "#00C853",  # Green
-            "#D50000"   # Red
-        ]
+        use_container_width=True
     )
 
 else:
@@ -216,8 +236,6 @@ st.markdown("---")
 # --------------------------------------------------
 # FUND STATUS
 # --------------------------------------------------
-
-st.subheader("Fund Status")
 
 if cash_balance >= 0:
 
