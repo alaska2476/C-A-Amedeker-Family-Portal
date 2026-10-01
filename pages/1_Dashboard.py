@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from database import get_payments, get_expenses
 
 # --------------------------------------------------
@@ -79,6 +80,8 @@ with col4:
         f"## GHC {outstanding_levies:,.2f}"
     )
 
+st.write("")
+st.write("")
 st.markdown("---")
 
 # --------------------------------------------------
@@ -87,49 +90,66 @@ st.markdown("---")
 
 st.subheader("Recent Activity")
 
-left, right = st.columns(
-    [1, 1],
-    gap="large"
-)
+left, spacer, right = st.columns([5, 2, 5])
 
 with left:
 
     st.markdown("### Recent Contributions")
 
-    with st.container(border=True):
+    if payments:
 
-        if payments:
+        contribution_df = pd.DataFrame(
+            payments,
+            columns=[
+                "ID",
+                "Date",
+                "Member",
+                "Contribution Type",
+                "Amount"
+            ]
+        )
 
-            st.dataframe(
-                payments[-10:],
-                use_container_width=True
-            )
+        st.dataframe(
+            contribution_df.tail(10),
+            use_container_width=True
+        )
 
-        else:
+    else:
 
-            st.info(
-                "No contributions recorded."
-            )
+        st.info(
+            "No contributions recorded."
+        )
 
 with right:
 
     st.markdown("### Recent Expenses")
 
-    with st.container(border=True):
+    if expenses:
 
-        if expenses:
+        expense_df = pd.DataFrame(
+            expenses,
+            columns=[
+                "ID",
+                "Date",
+                "Expense Type",
+                "Description",
+                "Amount"
+            ]
+        )
 
-            st.dataframe(
-                expenses[-10:],
-                use_container_width=True
-            )
+        st.dataframe(
+            expense_df.tail(10),
+            use_container_width=True
+        )
 
-        else:
+    else:
 
-            st.info(
-                "No expenses recorded."
-            )
+        st.info(
+            "No expenses recorded."
+        )
 
+st.write("")
+st.write("")
 st.markdown("---")
 
 # --------------------------------------------------
@@ -140,11 +160,55 @@ st.subheader(
     "Contributions vs Expenses Trend"
 )
 
-with st.container(border=True):
+if payments or expenses:
+
+    chart_rows = []
+
+    for payment in payments:
+
+        chart_rows.append(
+            {
+                "Date": payment[1],
+                "Contributions": payment[4],
+                "Expenses": 0
+            }
+        )
+
+    for expense in expenses:
+
+        chart_rows.append(
+            {
+                "Date": expense[1],
+                "Contributions": 0,
+                "Expenses": expense[4]
+            }
+        )
+
+    chart_df = pd.DataFrame(chart_rows)
+
+    chart_df["Date"] = pd.to_datetime(
+        chart_df["Date"]
+    )
+
+    chart_df = (
+        chart_df
+        .groupby("Date")
+        .sum()
+        .sort_index()
+    )
+
+    st.line_chart(
+        chart_df,
+        color=[
+            "#00C853",  # Green
+            "#D50000"   # Red
+        ]
+    )
+
+else:
 
     st.info(
-        "Line chart will be displayed here. "
-        "Green = Contributions, Red = Expenses."
+        "Add contributions and expenses to view the trend chart."
     )
 
 st.markdown("---")
