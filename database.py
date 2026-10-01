@@ -73,8 +73,7 @@ def add_member(full_name):
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO members
-    (full_name)
+    INSERT INTO members (full_name)
     VALUES (?)
     """, (full_name,))
 
@@ -117,6 +116,20 @@ def update_member(member_id, full_name):
     conn.close()
 
 
+def delete_member(member_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    DELETE FROM members
+    WHERE id = ?
+    """, (member_id,))
+
+    conn.commit()
+    conn.close()
+
+
 def add_expense(
     expense_date,
     expense_type,
@@ -128,8 +141,7 @@ def add_expense(
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO expenses
-    (
+    INSERT INTO expenses (
         expense_date,
         expense_type,
         description,
@@ -196,6 +208,20 @@ def update_expense(
         amount,
         expense_id
     ))
+
+    conn.commit()
+    conn.close()
+
+
+def delete_expense(expense_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    DELETE FROM expenses
+    WHERE id = ?
+    """, (expense_id,))
 
     conn.commit()
     conn.close()
