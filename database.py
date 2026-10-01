@@ -16,7 +16,8 @@ def initialize_database():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS members (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        full_name TEXT NOT NULL
+        full_name TEXT NOT NULL,
+        contribution_start_date TEXT
     )
     """)
 
@@ -67,19 +68,27 @@ def initialize_database():
     conn.close()
 
 
-def add_member(full_name):
+def add_member(
+    full_name,
+    contribution_start_date
+):
 
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO members (full_name)
-    VALUES (?)
-    """, (full_name,))
+    INSERT INTO members (
+        full_name,
+        contribution_start_date
+    )
+    VALUES (?, ?)
+    """, (
+        full_name,
+        str(contribution_start_date)
+    ))
 
     conn.commit()
     conn.close()
-
 
 def get_members():
 
@@ -89,7 +98,8 @@ def get_members():
     cursor.execute("""
     SELECT
         id,
-        full_name
+        full_name,
+        contribution_start_date
     FROM members
     ORDER BY id
     """)
@@ -101,7 +111,7 @@ def get_members():
     return records
 
 
-def update_member(member_id, full_name):
+def update_member(member_id, full_name,contribution_start_date):
 
     conn = get_connection()
     cursor = conn.cursor()
