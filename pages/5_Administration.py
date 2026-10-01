@@ -387,10 +387,10 @@ with tab3:
                 key="btn_update_payment"
             ):
 
-                update_payment(
+          update_payment(
                     payment_options[selected_payment],
                     member_options[edit_member],
-              edit_payment_date,
+                    edit_payment_date,
                     edit_description,
                     edit_amount
                 )
@@ -423,7 +423,6 @@ with tab3:
         st.info(
             "Please add members first."
         )
-
 # ----------------------------------
 # LEVIES
 # ----------------------------------
