@@ -37,10 +37,7 @@ with tab1:
         key="member_full_name"
     )
 
-    if st.button(
-        "Add Member",
-        key="btn_add_member"
-    ):
+    if st.button("Add Member", key="btn_add_member"):
 
         if full_name.strip():
 
@@ -92,9 +89,7 @@ with tab1:
 
     else:
 
-        st.info(
-            "No members available."
-        )
+        st.info("No members available.")
 
 # ----------------------------------
 # EXPENSES
@@ -105,7 +100,7 @@ with tab2:
     st.subheader("Add Expense")
 
     expense_date = st.date_input(
-        "Expense Date",
+        "Transaction Date",
         key="expense_date"
     )
 
@@ -122,6 +117,7 @@ with tab2:
     expense_amount = st.number_input(
         "Amount",
         min_value=0.0,
+        step=0.01,
         key="expense_amount"
     )
 
@@ -161,7 +157,7 @@ with tab2:
         )
 
         edit_date = st.date_input(
-            "Expense Date",
+            "Transaction Date",
             key="edit_expense_date"
         )
 
@@ -178,6 +174,7 @@ with tab2:
         edit_amount = st.number_input(
             "Amount",
             min_value=0.0,
+            step=0.01,
             key="edit_expense_amount"
         )
 
@@ -200,9 +197,7 @@ with tab2:
 
     else:
 
-        st.info(
-            "No expenses available."
-        )
+        st.info("No expenses available.")
 
 # ----------------------------------
 # PAYMENTS
@@ -228,14 +223,3 @@ with tab4:
         "Add, edit and delete levies will be added next."
     )
 
-# ----------------------------------
-# AUDIT LOG
-# ----------------------------------
-
-with tab5:
-
-    st.subheader("Audit Log")
-
-    st.info(
-        "Audit records will appear here."
-    )
