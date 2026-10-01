@@ -85,61 +85,75 @@ st.markdown("---")
 # RECENT ACTIVITY
 # --------------------------------------------------
 
-left, right = st.columns(2)
+st.subheader("Recent Activity")
+
+left, right = st.columns(
+    [1, 1],
+    gap="large"
+)
 
 with left:
 
-    st.subheader("Recent Contributions")
+    st.markdown("### Recent Contributions")
 
-    if payments:
+    with st.container(border=True):
 
-        st.dataframe(
-            payments[-10:],
-            width="stretch"
-        )
+        if payments:
 
-    else:
+            st.dataframe(
+                payments[-10:],
+                use_container_width=True
+            )
 
-        st.info(
-            "No contributions recorded."
-        )
+        else:
+
+            st.info(
+                "No contributions recorded."
+            )
 
 with right:
 
-    st.subheader("Recent Expenses")
+    st.markdown("### Recent Expenses")
 
-    if expenses:
+    with st.container(border=True):
 
-        st.dataframe(
-            expenses[-10:],
-            width="stretch"
-        )
+        if expenses:
 
-    else:
+            st.dataframe(
+                expenses[-10:],
+                use_container_width=True
+            )
 
-        st.info(
-            "No expenses recorded."
-        )
+        else:
+
+            st.info(
+                "No expenses recorded."
+            )
 
 st.markdown("---")
 
 # --------------------------------------------------
-# CONTRIBUTIONS VS EXPENSES
+# CONTRIBUTIONS VS EXPENSES TREND
 # --------------------------------------------------
 
 st.subheader(
     "Contributions vs Expenses Trend"
 )
 
-st.info(
-    "Coming next: Green line = Contributions, Red line = Expenses."
-)
+with st.container(border=True):
+
+    st.info(
+        "Line chart will be displayed here. "
+        "Green = Contributions, Red = Expenses."
+    )
 
 st.markdown("---")
 
 # --------------------------------------------------
 # FUND STATUS
 # --------------------------------------------------
+
+st.subheader("Fund Status")
 
 if cash_balance >= 0:
 
