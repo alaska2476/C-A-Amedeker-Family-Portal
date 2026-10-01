@@ -4,49 +4,89 @@ st.title("Administration")
 
 st.warning("Authorized Administrators Only")
 
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "Add Member",
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Add Expense",
-    "Add Monthly Dues",
-    "Add Levy",
     "Record Payment",
+    "Add Levy",
+    "Add Member",
     "Audit Log"
 ])
 
 # ----------------------------------
-# ADD MEMBER
+# ADD EXPENSE
 # ----------------------------------
 
 with tab1:
 
-    st.subheader("Add Member")
+    st.subheader("Add Expense")
 
-    full_name = st.text_input(
-        "Full Name",
-        key="member_full_name"
+    expense_date = st.date_input(
+        "Expense Date",
+        key="expense_date"
     )
 
-    phone = st.text_input(
-        "Phone",
-        key="member_phone"
+    expense_type = st.text_input(
+        "Expense Type",
+        key="expense_type"
     )
 
-    email = st.text_input(
-        "Email",
-        key="member_email"
+    expense_description = st.text_input(
+        "Description",
+        key="expense_description"
+    )
+
+    expense_amount = st.number_input(
+        "Amount",
+        min_value=0.0,
+        key="expense_amount"
     )
 
     if st.button(
-        "Add Member",
-        key="btn_add_member"
+        "Save Expense",
+        key="btn_save_expense"
     ):
-        st.success("Member Added")
+        st.success("Expense Saved")
+
+# ----------------------------------
+# RECORD PAYMENT
+# ----------------------------------
+
+with tab2:
+
+    st.subheader("Record Payment")
+
+    member = st.text_input(
+        "Member Name",
+        key="payment_member"
+    )
+
+    payment_date = st.date_input(
+        "Payment Date",
+        key="payment_date"
+    )
+
+    amount = st.number_input(
+        "Payment Amount",
+        min_value=0.0,
+        key="payment_amount"
+    )
+
+    description = st.text_input(
+        "Payment Description",
+        key="payment_description"
+    )
+
+    if st.button(
+        "Save Payment",
+        key="btn_save_payment"
+    ):
+        st.success("Payment Recorded")
 
 # ----------------------------------
 # ADD LEVY
 # ----------------------------------
 
-with tab2:
+with tab3:
 
     st.subheader("Add Levy")
 
@@ -73,43 +113,43 @@ with tab2:
         st.success("Levy Added")
 
 # ----------------------------------
-# RECORD PAYMENT
+# ADD MEMBER
 # ----------------------------------
 
-with tab3:
+with tab4:
 
-    st.subheader("Record Payment")
+    st.subheader("Add Member")
 
-    member = st.text_input(
-        "Member Name",
-        key="payment_member"
+    full_name = st.text_input(
+        "Full Name",
+        key="member_full_name"
     )
 
-    amount = st.number_input(
-        "Payment Amount",
-        min_value=0.0,
-        key="payment_amount"
+    phone = st.text_input(
+        "Phone",
+        key="member_phone"
     )
 
-    description = st.text_input(
-        "Payment Description",
-        key="payment_description"
+    email = st.text_input(
+        "Email",
+        key="member_email"
     )
 
     if st.button(
-        "Save Payment",
-        key="btn_save_payment"
+        "Add Member",
+        key="btn_add_member"
     ):
-        st.success("Payment Recorded")
+        st.success("Member Added")
 
 # ----------------------------------
 # AUDIT LOG
 # ----------------------------------
 
-with tab4:
+with tab5:
 
     st.subheader("Audit Log")
 
     st.info(
         "Audit records will appear here."
     )
+`
