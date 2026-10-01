@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from database import initialize_database, get_members
-
-initialize_database()
+from database import get_members
 
 st.title("Members")
 
@@ -15,15 +13,9 @@ if len(members) > 0:
         members,
         columns=[
             "ID",
-            "Member Name"
+            "Name"
         ]
     )
-
-    df = df[
-        [
-            "Member Name"
-        ]
-    ]
 
     st.dataframe(
         df,
