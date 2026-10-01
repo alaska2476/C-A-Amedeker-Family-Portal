@@ -27,7 +27,7 @@ def initialize_database():
         expense_date TEXT,
         expense_type TEXT,
         description TEXT,
-        amount REAL
+        amount REAL NOT NULL
     )
     """)
 
@@ -35,8 +35,8 @@ def initialize_database():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS payments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        member_id INTEGER,
-        payment_date TEXT,
+        member_id INTEGER NOT NULL,
+        payment_date TEXT NOT NULL,
         description TEXT,
         amount REAL
     )
@@ -225,7 +225,103 @@ def delete_expense(expense_id):
 
     conn.commit()
     conn.close()
+def add_payment(
+    member_id,
+    payment_date,
+    description,
+    amount
+):
 
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO payments (
+        member_id,
+        payment_date,
+        description,
+        amount
+    )
+    VALUES (?, ?, ?, ?)
+    """, (
+        member_id,
+        str(payment_date),
+        description,
+        amount
+    ))
+
+    conn.commit()
+    conn.close()
+
+
+def get_payments():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT
+        payments.id,
+        payments.payment_date,
+        members.full_name,
+        payments.description,
+        payments.amount
+    FROM payments
+    LEFT JOIN members
+        ON payments.member_id = members.id
+    ORDER BY payments.id
+    """)
+
+    records = cursor.fetchall()
+
+    conn.close()
+
+    return records
+
+
+def update_payment(
+    payment_id,
+    member_id,
+    payment_date,
+    description,
+    amount
+):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    UPDATE payments
+    SET
+        member_id = ?,
+        payment_date = ?,
+        description = ?,
+        amount = ?
+    WHERE id = ?
+    """, (
+        member_id,
+        str(payment_date),
+        description,
+        amount,
+        payment_id
+    ))
+
+    conn.commit()
+    conn.close()
+
+
+def delete_payment(payment_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    DELETE FROM payments
+    WHERE id = ?
+    """, (payment_id,))
+
+    conn.commit()
+    conn.close()
 
 if __name__ == "__main__":
     initialize_database()
