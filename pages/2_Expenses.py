@@ -12,7 +12,6 @@ if expenses:
     df = pd.DataFrame(
         expenses,
         columns=[
-            "ID",
             "Date",
             "Type",
             "Description",
