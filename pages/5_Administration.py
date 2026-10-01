@@ -297,7 +297,7 @@ with tab3:
     if members:
 
         member_options = {
-            member[1]: member[0]
+            member[1\]: member[0]
             for member in members
         }
 
@@ -387,7 +387,7 @@ with tab3:
                 key="btn_update_payment"
             ):
 
-          update_payment(
+                update_payment(
                     payment_options[selected_payment],
                     member_options[edit_member],
                     edit_payment_date,
@@ -406,7 +406,7 @@ with tab3:
 
                 delete_payment(
                     payment_options[selected_payment]
-                )
+          )
 
                 st.success(
                     "Payment Deleted Successfully"
