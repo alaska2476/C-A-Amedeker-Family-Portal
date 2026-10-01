@@ -34,6 +34,7 @@ total_expenses = (
 
 cash_balance = total_contributions - total_expenses
 
+# Placeholder until Outstanding Levies module is built
 outstanding_levies = 0
 
 # --------------------------------------------------
@@ -80,7 +81,6 @@ with col4:
         f"## GHC {outstanding_levies:,.2f}"
     )
 
-st.write("")
 st.markdown("---")
 
 # --------------------------------------------------
@@ -145,4 +145,110 @@ with right:
 
         expense_df = pd.DataFrame(
             expenses,
-  
+            columns=[
+                "ID",
+                "Date",
+                "Expense Type",
+                "Description",
+                "Amount"
+            ]
+        )
+
+        expense_df = expense_df[
+            [
+                "Date",
+                "Expense Type",
+                "Description",
+                "Amount"
+            ]
+        ]
+
+        st.dataframe(
+            expense_df.tail(10),
+            use_container_width=True,
+            hide_index=True
+        )
+
+    else:
+
+        st.info(
+            "No expenses recorded."
+        )
+
+st.markdown("---")
+
+# --------------------------------------------------
+# CONTRIBUTIONS VS EXPENSES TREND
+# --------------------------------------------------
+
+st.subheader(
+    "Contributions vs Expenses Trend"
+)
+
+if payments or expenses:
+
+    chart_rows = []
+
+    for payment in payments:
+
+        chart_rows.append(
+            {
+                "Date": payment[1],
+                "Contributions": payment[4],
+                "Expenses": 0
+            }
+        )
+
+    for expense in expenses:
+
+        chart_rows.append(
+            {
+                "Date": expense[1],
+                "Contributions": 0,
+                "Expenses": expense[4]
+            }
+        )
+
+    chart_df = pd.DataFrame(chart_rows)
+
+    chart_df["Date"] = pd.to_datetime(
+        chart_df["Date"]
+    )
+
+    chart_df = (
+        chart_df
+        .groupby("Date")
+        .sum()
+        .sort_index()
+    )
+
+    st.line_chart(
+        chart_df,
+        use_container_width=True
+    )
+
+else:
+
+    st.info(
+        "Add contributions and expenses to view the trend chart."
+    )
+
+st.markdown("---")
+
+# --------------------------------------------------
+# FUND STATUS
+# --------------------------------------------------
+
+st.subheader("Fund Status")
+
+if cash_balance >= 0:
+
+    st.success(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
+
+else:
+
+    st.error(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
