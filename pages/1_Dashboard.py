@@ -22,12 +22,16 @@ cash_balance = total_contributions - total_expenses
 outstanding_levies = 0
 
 # Page Title
-st.title("Family Accounts Dashboard")
+st.title("C.A. Amedeker Family Accounts")
+
+st.caption(
+    "Contributions • Expenses • Outstanding Levies"
+)
 
 st.subheader("Family Fund Summary")
 
 # Summary Cards
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
     st.metric(
@@ -40,6 +44,8 @@ with col2:
         "Total Expenses",
         f"GHC {total_expenses:,.2f}"
     )
+
+col3, col4 = st.columns(2)
 
 with col3:
     st.metric(
@@ -55,6 +61,39 @@ with col4:
 
 st.markdown("---")
 
-st.success(
-    f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
-)
+# Fund Status
+if cash_balance >= 0:
+    st.success(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
+else:
+    st.error(
+        f"Current Family Fund Balance: GHC {cash_balance:,.2f}"
+    )
+
+st.markdown("---")
+
+# Recent Activity
+left, right = st.columns(2)
+
+with left:
+    st.subheader("Recent Contributions")
+
+    if payments:
+        st.dataframe(
+            payments[-5:],
+            use_container_width=True
+        )
+    else:
+        st.info("No contributions recorded.")
+
+with right:
+    st.subheader("Recent Expenses")
+
+    if expenses:
+        st.dataframe(
+            expenses[-5:],
+            use_container_width=True
+        )
+    else:
+        st.info("No expenses recorded.")
