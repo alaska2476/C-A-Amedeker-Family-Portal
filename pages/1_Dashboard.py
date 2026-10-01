@@ -34,7 +34,6 @@ total_expenses = (
 
 cash_balance = total_contributions - total_expenses
 
-# Placeholder until Outstanding Levies module is built
 outstanding_levies = 0
 
 # --------------------------------------------------
@@ -91,10 +90,6 @@ st.subheader("Recent Activity")
 
 left, spacer, right = st.columns([5, 2, 5])
 
-# --------------------------------------------------
-# RECENT CONTRIBUTIONS
-# --------------------------------------------------
-
 with left:
 
     st.markdown("### Recent Contributions")
@@ -132,10 +127,6 @@ with left:
         st.info(
             "No contributions recorded."
         )
-
-# --------------------------------------------------
-# RECENT EXPENSES
-# --------------------------------------------------
 
 with right:
 
@@ -178,60 +169,99 @@ with right:
 st.markdown("---")
 
 # --------------------------------------------------
-# CONTRIBUTIONS VS EXPENSES TREND
+# FINANCIAL ANALYTICS
 # --------------------------------------------------
 
-st.subheader(
-    "Contributions vs Expenses Trend"
-)
+st.subheader("Financial Analytics")
 
-if payments or expenses:
+left, spacer, right = st.columns([5, 2, 5])
 
-    chart_rows = []
+with left:
 
-    for payment in payments:
+    st.markdown("### Income vs Expenses Trend")
 
-        chart_rows.append(
-            {
-                "Date": payment[1],
-                "Contributions": payment[4],
-                "Expenses": 0
-            }
+    if payments or expenses:
+
+        chart_rows = []
+
+        for payment in payments:
+
+            chart_rows.append(
+                {
+                    "Date": payment[1],
+                    "Contributions": payment[4],
+                    "Expenses": 0
+                }
+            )
+
+        for expense in expenses:
+
+            chart_rows.append(
+                {
+                    "Date": expense[1],
+                    "Contributions": 0,
+                    "Expenses": expense[4]
+                }
+            )
+
+        chart_df = pd.DataFrame(chart_rows)
+
+        chart_df["Date"] = pd.to_datetime(
+            chart_df["Date"]
         )
 
-    for expense in expenses:
-
-        chart_rows.append(
-            {
-                "Date": expense[1],
-                "Contributions": 0,
-                "Expenses": expense[4]
-            }
+        chart_df = (
+            chart_df
+            .groupby("Date")
+            .sum()
+            .sort_index()
         )
 
-    chart_df = pd.DataFrame(chart_rows)
+        st.line_chart(
+            chart_df,
+            use_container_width=True
+        )
 
-    chart_df["Date"] = pd.to_datetime(
-        chart_df["Date"]
-    )
+    else:
 
-    chart_df = (
-        chart_df
-        .groupby("Date")
-        .sum()
-        .sort_index()
-    )
+        st.info(
+            "No data available."
+        )
 
-    st.line_chart(
-        chart_df,
-        use_container_width=True
-    )
+with right:
 
-else:
+    st.markdown("### Expense Breakdown")
 
-    st.info(
-        "Add contributions and expenses to view the trend chart."
-    )
+    if expenses:
+
+        breakdown_df = pd.DataFrame(
+            expenses,
+            columns=[
+                "ID",
+                "Date",
+                "Expense Type",
+                "Description",
+                "Amount"
+            ]
+        )
+
+        breakdown_df = (
+            breakdown_df
+            .groupby("Expense Type")["Amount"]
+            .sum()
+            .sort_values(ascending=False)
+        )
+
+        st.bar_chart(
+            breakdown_df,
+            use_container_width=True
+        )
+
+    else:
+
+        st.info(
+            "No expense data available."
+        )
 
 st.markdown("---")
 
