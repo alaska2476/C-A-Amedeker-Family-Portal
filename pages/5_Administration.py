@@ -24,18 +24,8 @@ with tab1:
     st.subheader("Add Member")
 
     full_name = st.text_input(
-        "Full Name",
+        "Member Name",
         key="member_full_name"
-    )
-
-    phone = st.text_input(
-        "Phone",
-        key="member_phone"
-    )
-
-    email = st.text_input(
-        "Email",
-        key="member_email"
     )
 
     if st.button(
@@ -43,16 +33,11 @@ with tab1:
         key="btn_add_member"
     ):
 
-        add_member(
-            full_name,
-            phone,
-            email
-        )
+        add_member(full_name)
 
         st.success(
             "Member Added Successfully"
         )
-
 # ----------------------------------
 # ADD EXPENSE
 # ----------------------------------
