@@ -1,5 +1,11 @@
 import streamlit as st
-from database import initialize_database, add_member
+
+from database import (
+    initialize_database,
+    add_member,
+    get_members,
+    update_member
+)
 
 initialize_database()
 
@@ -8,15 +14,15 @@ st.title("Administration")
 st.warning("Authorized Administrators Only")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "Add Member",
-    "Add Expense",
-    "Record Payment",
-    "Add Levy",
+    "Members",
+    "Expenses",
+    "Payments",
+    "Levies",
     "Audit Log"
 ])
 
 # ----------------------------------
-# ADD MEMBER
+# MEMBERS
 # ----------------------------------
 
 with tab1:
@@ -33,110 +39,94 @@ with tab1:
         key="btn_add_member"
     ):
 
-        add_member(full_name)
+        if full_name.strip():
 
-        st.success(
-            "Member Added Successfully"
+            add_member(full_name)
+
+            st.success(
+                "Member Added Successfully"
+            )
+
+    st.markdown("---")
+
+    st.subheader("Edit Member")
+
+    members = get_members()
+
+    if members:
+
+        member_options = {
+            f"{member[0]} - {member[1]}": member[0]
+            for member in members
+        }
+
+        selected_member = st.selectbox(
+            "Select Member",
+            list(member_options.keys())
         )
+
+        corrected_name = st.text_input(
+            "Correct Name",
+            key="corrected_member_name"
+        )
+
+        if st.button(
+            "Update Member",
+            key="btn_update_member"
+        ):
+
+            if corrected_name.strip():
+
+                update_member(
+                    member_options[selected_member],
+                    corrected_name
+                )
+
+                st.success(
+                    "Member Updated Successfully"
+                )
+
+    else:
+
+        st.info(
+            "No members available."
+        )
+
 # ----------------------------------
-# ADD EXPENSE
+# EXPENSES
 # ----------------------------------
 
 with tab2:
 
-    st.subheader("Add Expense")
+    st.subheader("Expense Management")
 
-    expense_date = st.date_input(
-        "Expense Date",
-        key="expense_date"
+    st.info(
+        "Add, edit and delete expenses will be added next."
     )
-
-    expense_type = st.text_input(
-        "Expense Type",
-        key="expense_type"
-    )
-
-    expense_description = st.text_input(
-        "Description",
-        key="expense_description"
-    )
-
-    expense_amount = st.number_input(
-        "Amount",
-        min_value=0.0,
-        key="expense_amount"
-    )
-
-    if st.button(
-        "Save Expense",
-        key="btn_save_expense"
-    ):
-        st.success("Expense Saved")
 
 # ----------------------------------
-# RECORD PAYMENT
+# PAYMENTS
 # ----------------------------------
 
 with tab3:
 
-    st.subheader("Record Payment")
+    st.subheader("Payment Management")
 
-    member = st.text_input(
-        "Member Name",
-        key="payment_member"
+    st.info(
+        "Add, edit and delete payments will be added next."
     )
-
-    payment_date = st.date_input(
-        "Payment Date",
-        key="payment_date"
-    )
-
-    amount = st.number_input(
-        "Payment Amount",
-        min_value=0.0,
-        key="payment_amount"
-    )
-
-    description = st.text_input(
-        "Payment Description",
-        key="payment_description"
-    )
-
-    if st.button(
-        "Save Payment",
-        key="btn_save_payment"
-    ):
-        st.success("Payment Recorded")
 
 # ----------------------------------
-# ADD LEVY
+# LEVIES
 # ----------------------------------
 
 with tab4:
 
-    st.subheader("Add Levy")
+    st.subheader("Levy Management")
 
-    member = st.text_input(
-        "Member Name",
-        key="levy_member"
+    st.info(
+        "Add, edit and delete levies will be added next."
     )
-
-    levy_amount = st.number_input(
-        "Levy Amount",
-        min_value=0.0,
-        key="levy_amount"
-    )
-
-    levy_description = st.text_input(
-        "Levy Description",
-        key="levy_description"
-    )
-
-    if st.button(
-        "Create Levy",
-        key="btn_create_levy"
-    ):
-        st.success("Levy Added")
 
 # ----------------------------------
 # AUDIT LOG
